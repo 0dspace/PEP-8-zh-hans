@@ -17,6 +17,8 @@
 
 * <a href="#introduction" id="-introduction">引言</a>
 * <a href="#foolish" id="-foolish">愚蠢的一致性是小心行事的灾难</a>
+* <a href="#code-lay-out" id="-code-lay-out">代码布局</a>
+  * <a href="#indentation" id="-indentation">缩进</a>
 * <a href="#references" id="-references">参考</a>
 
 
@@ -46,6 +48,109 @@ Guido的主要见解之一是代码阅读的次数比编写次数多得多。这
 2. 为了与周围的代码保持一致（也许是出于历史原因） —— 尽管这也是一个清理别人乱七八糟（真正的XP风格）的机会。
 3. 因为相关代码早于此风格指南，而且没有其他理由要修改该代码。
 4. 当代码需要与不支持此风格指南推荐的功能的旧版本的Python兼容时。
+
+#### <a href="#-code-lay-out" id="code-lay-out">代码布局</a>
+
+##### <a href="#-indentation" id="indentation">缩进</a>
+
+每个缩进级别使用4个空格。
+
+连续行应使用Python的隐式行连接括号，方括号和花括号，或使用悬挂缩进来垂直对齐包装元素。当使用悬挂式缩进的时候应该考虑以下因素：第一行不应该有参数，其余的行应该明确的将自己区分为连续的行。
+
+推荐的格式：
+
+```Python
+# 与开始分隔符对齐
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+# 在内部使用更多的缩进来区分参数和其余代码
+def long_function_name(
+		var_one, var_two, var_three,
+		var_four):
+    print(var_one)
+
+# 悬挂式缩进应该提高一个级别
+foo = long_function_name(
+	var_one, var_two,
+	var_three, var_four)
+```
+
+不推荐的格式：
+
+```Python
+# 当不使用垂直对齐的时候严禁参数在第一行
+foo = long_function_name(var_one, var_two,
+	var_three, var_four)
+
+# 当缩进不可区分的时候需要使用更多的缩进
+def long_function_name(
+	var_one, var_two, var_three,
+	var_four):
+    print(var_one)
+```
+
+对于连续的行来说"4空格规则"是可选的。
+
+可选的格式：
+
+```Python
+# 悬挂式缩进可以不使用4个空格
+foo = long_function_name(
+  var_one, var_two,
+  var_three, var_four)
+```
+
+当一个if语句的条件部分长到需要写成多行的时候，通过合并两个字符的关键字加一个单个空格再加一个左括号而为多行条件的连续行创建一个自然的4空格缩进是毫无用处的。这会与在if语句内部本就该进行4空格缩进的代码产生一个视觉的冲突。这个 PEP 没有明确的说明如何(或是否)对这种if语句内部的多行条件进行进一步的视觉区分。这种情况下的可接受的选项包括但不限于：
+
+```Python
+# 没有额外的缩进
+if (this_is_one_thing and
+    that_is_another_thing):
+    do_something()
+
+# 添加一条注释，这将在编辑器中提供一些区分
+# 支持语法高亮
+if (this_is_one_thing and
+    that_is_another_thing):
+    # 当两个条件都是 真 的时候继续
+    do_something()
+
+# 在条件的下一行添加额外的缩进
+if (this_is_one_thing
+   		and that_is_another_thing):
+    do_something()
+```
+
+（另请参阅下面关于是否在二元运算符之前或之后中断的讨论。）
+
+多行结构中的右括弧/方括号/花括号可以也放在列表的最后一行的第一个非空白字符下，如下所示：
+
+```Python
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+	]
+result = some_function_that_takes_arguments(
+	'a', 'b', 'c',
+	'd', 'e', 'f',
+	)
+```
+
+或者放在开始这个多行结构的第一个字符下，如下所示：
+
+```Python
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+]
+result = some_function_that_takes_arguments(
+	'a', 'b', 'c',
+	'd', 'e', 'f',
+)
+```
+
+
 
 #### <a id="references" href="#-references">参考</a>
 
