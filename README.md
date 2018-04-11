@@ -19,6 +19,7 @@
 * <a href="#foolish" id="-foolish">愚蠢的一致性是小心行事的灾难</a>
 * <a href="#code-lay-out" id="-code-lay-out">代码布局</a>
   * <a href="#indentation" id="-indentation">缩进</a>
+  * <a href="#tabsorspace" id="-tabsorspace">使用tab还是空格?</a>
 * <a href="#references" id="-references">参考</a>
 
 
@@ -150,7 +151,17 @@ result = some_function_that_takes_arguments(
 )
 ```
 
+##### <a href="-tabsorspace" id="tabsorspace">使用tab还是空格?</a>
 
+空格是首选的缩进方法。
+
+tab应该被独立地使用来和那些已经用tab缩进的代码保持一致。
+
+Python3不允许在缩进中混合使用tab和空格。
+
+混合使用tab和空格的python2代码应该转换为仅仅使用空格。
+
+当使用`-t`参数打开Python2命令行解释器的时候，它会报出关于非法混合使用tab和空格的代码的警告。当使用`-tt`参数的时候这些警告会变成错误。这些参数是高度建议的。
 
 #### <a id="references" href="#-references">参考</a>
 
