@@ -20,6 +20,7 @@
 * <a href="#code-lay-out" id="-code-lay-out">代码布局</a>
   * <a href="#indentation" id="-indentation">缩进</a>
   * <a href="#tabsorspace" id="-tabsorspace">使用tab还是空格?</a>
+  * <a href="#maxlinelength" id="-maxlinelength">行的最大长度</a>
 * <a href="#references" id="-references">参考</a>
 
 
@@ -162,6 +163,36 @@ Python3不允许在缩进中混合使用tab和空格。
 混合使用tab和空格的python2代码应该转换为仅仅使用空格。
 
 当使用`-t`参数打开Python2命令行解释器的时候，它会报出关于非法混合使用tab和空格的代码的警告。当使用`-tt`参数的时候这些警告会变成错误。这些参数是高度建议的。
+
+##### <a href="#-maxlinelength" id="maxlinelength">行的最大长度</a>
+
+将所有行的限制为最多79个字符。
+
+对于具有较少结构限制的长文本块(文档字符串或注释)，行的长度应该限制在72个字符。
+
+限制所需编辑器窗口的宽度可以使多个文件并排打开，并且在使用在相邻列中显示两个版本的代码审阅工具时可以很好地工作。
+
+大多数工具的默认wrapping破坏了代码的可视化结构，使其更难以理解。选择限制是为了避免在窗口宽度设置为80的编辑器中进行wrapping，即使该工具在wrapping行时在最终列中放置了标记符号。一些基于Web的工具可能根本不提供动态换行。
+
+一些团队更喜欢长一些的行。对于专门或主要由团队维护的代码，可以就此问题达成一致，将所谓的行的长度从80增长到100个字符是没问题的(将有效最大长度增长为99个字符)，前提是保证注释和文档字符串的长度仍然限制在72个字符。
+
+Python标准库是保守的，需要将行限制为79个字符（文档字符串/注释为72）。
+
+包装长行的首选方式是在括号，中括号和大括号内使用Python的隐式行连续。通过在圆括号中包装表达式，可以将长行分成多行。这些应该优先使用反斜杠进行续行。
+
+有时反斜杠可能仍然适用。比如，长而复杂的`with`语句的不能使用隐式行连续，所以反斜杠是可以接受的：
+
+```Python
+with open('/path/to/some/file/you/want/to/read') as file_1, \
+     open('/path/to/some/file/being/written', 'w') as file_2:
+    file_2.write(file_1.read())
+```
+
+（请参阅前面有关多行if语句的讨论，以获得有关此类多行语句缩进进一步的看法。）
+
+另一个这样的情况是assert语句。
+
+确保适当缩进连续行。
 
 #### <a id="references" href="#-references">参考</a>
 
