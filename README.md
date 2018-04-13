@@ -21,6 +21,7 @@
   * <a href="#indentation" id="-indentation">缩进</a>
   * <a href="#tabsorspace" id="-tabsorspace">使用tab还是空格?</a>
   * <a href="#maxlinelength" id="-maxlinelength">行的最大长度</a>
+  * <a href="#breakline" id="-breakline">应该在二元运算符之前还是之后换行</a>
 * <a href="#references" id="-references">参考</a>
 
 
@@ -193,6 +194,34 @@ with open('/path/to/some/file/you/want/to/read') as file_1, \
 另一个这样的情况是assert语句。
 
 确保适当缩进连续行。
+
+##### <a href="#-breakline" id="breakline">应该在二元运算符之前还是之后换行</a>
+
+几十年来，推荐的方式是在二元运算符之后换行。但是这会在两方面影响可读性：运算数趋向于分散在屏幕的不同列上，并且每个运算数都被远离了它的运算符到了前一行上。所以眼下要做的就是要分辨出那个项目要添加，哪个要剔除：
+
+```Python
+# 错误的方式：操作数放在了远离了他们的操作符的地方
+income = (gross_wages +
+          taxable_interest +
+          (dividends - qualified_dividends) -
+          ira_deduction -
+          student_loan_interest)
+```
+
+为了解决这个可读性问题，数学家和他们的出版商遵循相反的惯例。Donald Knuth在他的“计算机与排版”系列中解释了传统规则：“尽管二进制操作和关系总是在段落中的公式之后换行，但在二元操作之前显示的公式总是会提前换行。”
+
+遵循数学家的传统通常会产生更具可读性的代码：
+
+```Python
+# 更容易匹配操作数和操作符
+income = (gross_wages
+          + taxable_interest
+          + (dividends - qualified_dividends)
+          - ira_deduction
+          - student_loan_interest)
+```
+
+在Python代码中，只要本地约定一致，在二元运算符之前或之后换行都是可以的。但是对于之后的新代码建议使用Knuth的风格。
 
 #### <a id="references" href="#-references">参考</a>
 
